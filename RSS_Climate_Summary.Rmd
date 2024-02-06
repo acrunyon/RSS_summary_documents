@@ -1,5 +1,4 @@
 ---
-title: "RSS Climate Summary"
 author: "Climate Change Response Program"
 date: "2024-02-05"
 output: word_document
@@ -84,11 +83,15 @@ State_summary_reference <- "Frankson, R., K.E. Kunkel, L.E. Stevens, B.C. Stewar
 
 ```
 
-*This template has all of the park climate information filled in. The project lead and regional climate staff need to fill in the park-specific sensitivities section based on concerns raised during the RSS process.*
+---
+title: `r LongName` RSS Climate Summary
+---
 
-## Historical and future climate for `r LongName`
+***This template has all of the park climate information filled in. The project lead and regional climate staff need to fill in the park-specific sensitivities section based on concerns raised during the RSS process.***
 
-`r LongName` (`r SiteID`) has already experienced significant and rapid human-caused climate change.(USGCRP 2023). `r State_summary_statement` Both maximum and minimum annual temperatures in `r SiteID` have significantly increased since 1970 and overnight temperatures (daily minimum) have increased at a rate of `r round(Historical_regression[6,3]/10,1)` °F per decade since 1970. Average annual precipitation has `r if(Historical_regression[10,3] > 0) {print("increased")} else {print("decreased")}` `r round(Historical_regression[10,3]/10,1)` inches per decade over the 20th century until present and there have been critical shifts in the style of the precipitation events. Extreme rainfall events have increased regionally and can change the frequency of flood peaks on tributary systems of `r SiteID`, with implications for ***[LEAD FILL POTENTIAL PARK-SPECIFIC IMPLICATIONS, E.G., geomorphology, and sediment transport]***. These sorts of climate changes frequently act as stress multipliers and exacerbate existing threats to natural resources, historic structures, and cultural landscapes.
+## Historical and future climate
+
+`r LongName` (`r SiteID`) has already experienced significant and rapid human-caused climate change. (USGCRP 2023). `r State_summary_statement` Both maximum and minimum annual temperatures in `r SiteID` have significantly increased since 1970 and overnight temperatures (daily minimum) have increased at a rate of `r round(Historical_regression[6,3]/10,1)` °F per decade since 1970. Average annual precipitation has `r if(Historical_regression[10,3] > 0) {print("increased")} else {print("decreased")}` `r round(Historical_regression[10,3]/10,1)` inches per decade over the 20th century until present and there have been critical shifts in the style of the precipitation events. Extreme rainfall events have increased regionally and can change the frequency of flood peaks on tributary systems of `r SiteID`, with implications for ***[LEAD FILL POTENTIAL PARK-SPECIFIC IMPLICATIONS, E.G., geomorphology, and sediment transport]***. These sorts of climate changes frequently act as stress multipliers and exacerbate existing threats to natural resources, historic structures, and cultural landscapes.
 
 All climate models project warming temperatures at `r SiteID` by ca. 2050 relative to a 1979-2012 baseline (Analyses: NPS Climate Change Response Program [CCRP]; Figure 1). Future projections for precipitation are mixed; most models project increasing average annual precipitation relative to the historical period while some project decreasing precipitation. CCRP produced two divergent and plausible climate futures specific to `r SiteID` for consideration during the RSS process. These include a "`r CFs[1]`" and "`r CFs[2]`" climate future. Under both futures temperatures increase but differ in the magnitude of warming. The futures also differ in whether they project increasing or decreasing annual precipitation. Considering different scenarios of climate change at `r SiteID` is intended to allow planning for each scenario, accounting for uncertainty in the future conditions the park is likely to experience in management plans (Lawrence et al. 2021).
 
@@ -116,12 +119,16 @@ knitr::kable(Drought.char, format="markdown")
 
 For example, drought intensity and severity are projected to increase under the "`r CFs[2]`" climate future where short but intense “flash droughts” become more common. Drought conditions are not as severe in the "`r CFs[1]`" climate future when extreme precipitation is a greater concern. However, even in this wet scenario, drought conditions remain a concern because even if annual precipitation remained the same, higher temperatures increase evapotranspiration rates, decreasing soil moisture during dry periods.
 
+***The project lead and regional climate staff fill in the park-specific sensitivities section based on concerns raised during the RSS process, here. [Examples can be found here.](https://doimspp.sharepoint.com/sites/nps-waso-ccrp/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2Fnps%2Dwaso%2Dccrp%2FShared%20Documents%2F01%20PROJECT%20Collaboration%2FScience%2C%20Adaptation%2C%20Planning%2FResource%20Stewardship%20Strategies%20%28RSS%29%2FExample%20Climate%20Summaries&viewid=a459d1c3%2Dd72a%2D4fec%2D9adc%2D0cc2a4094eba)***
+
 ```{r echo=FALSE}
 fig <- paste0(FigDir, "/TavgF-PrcpIn-Timeseries.png")
 
 ```
 
-![**Figure 1.** Historical (gray) and future projections(`r col[1]` and `r col[2]` lines) for annual mean temperature and precipitation in `r SiteID`. The lines running through the time series is the 10-year running average. Gray shaded area represents the future time period used to average future changes from the historical baseline. See Runyon et al. (2024) for details.](`r fig`)
+![**Figure 1.** Historical (gray) and future projections (`r col[1]` and `r col[2]` lines) for annual mean temperature and precipitation in `r SiteID`. The lines running through the time series is the 10-year running average. Gray shaded area represents the future time period used to average future changes from the historical baseline. See Runyon et al. (2024) for details.](`r fig`)
+
+
 
 ## References
 `r State_summary_reference`
