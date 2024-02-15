@@ -1,6 +1,6 @@
 ---
 author: "Climate Change Response Program"
-date: "2024-02-05"
+date: "2024-02-13"
 output: word_document
 ---
 
@@ -9,19 +9,19 @@ library(dplyr); library(tidyr);library(knitr)
 rm(list=ls())
 
 # Set park variables
-SiteID <- "CUIS"
-LongName <- "Cumberland Island National Seashore"
+SiteID <- "FOLS"
+LongName <- "Fort Larned National Historic Site"
 CF_selected <- "WarmWet_HotDry"
 # CF_selected <- "WarmDry_HotWet"
 
-region <- "Southeast"
+region.name <- "Midwest"
 
 # Set directories
-OutDir <- "C:/Users/arunyon/DOI/CCRP COLLABORATE! - CCRP COLLABORATE!/01 PROJECT Collaboration/Science, Adaptation, Planning/Resource Stewardship Strategies (RSS)/Current Park Folders/2023_CUIS"
+OutDir <- "C:/Users/arunyon/DOI/CCRP COLLABORATE! - CCRP COLLABORATE!/01 PROJECT Collaboration/Science, Adaptation, Planning/Resource Stewardship Strategies (RSS)/Current Park Folders/2024_FOLS/"
 
-Park_CF_Dir <- "C:/Users/arunyon/DOI/CCRP COLLABORATE! - CCRP COLLABORATE!/01 PROJECT Collaboration/Science, Adaptation, Planning/Resource Stewardship Strategies (RSS)/Current Park Folders/2023_CUIS/CUIS/"
+Park_CF_Dir <- "C:/Users/arunyon/DOI/CCRP COLLABORATE! - CCRP COLLABORATE!/01 PROJECT Collaboration/Science, Adaptation, Planning/Resource Stewardship Strategies (RSS)/Current Park Folders/2024_FOLS/FOLS-Climate Futures/"
 
-HistDir <- "C:/Users/arunyon/DOI/CCRP COLLABORATE! - CCRP COLLABORATE!/01 PROJECT Collaboration/Science, Adaptation, Planning/Resource Stewardship Strategies (RSS)/Current Park Folders/2023_CUIS/CUIS-Historical/"
+HistDir <- "C:/Users/arunyon/DOI/CCRP COLLABORATE! - CCRP COLLABORATE!/01 PROJECT Collaboration/Science, Adaptation, Planning/Resource Stewardship Strategies (RSS)/Current Park Folders/2024_FOLS/FOLS-Historical/"
 
 
 # #Read in RData file
@@ -34,7 +34,7 @@ if(CF_selected == "WarmWet_HotDry") {
   CFs = c("Warm Wet", "Hot Dry") # Pick pair of climate futures.
   CF_abbreviation <- "WW-HD"
   CFDir = paste0(Park_CF_Dir,"WarmWet_HotDry/") # for .csv's
-  col <- c("red","blue")
+  col <- c("blue","red")
 } else{
   CFs = c("Warm Dry", "Hot Wet")  # Pick pair of climate futures.
   CF_abbreviation <- "WD-HW"
@@ -61,13 +61,13 @@ CF2_precip_direction <- if(D_Annual$PrcpIn[3] > 0) {"pos"} else {"neg"}
 #Monthly trends
 CF1_precip_inc_direction <- Season_delta |> filter(CF == CFs[1],
                                                    PrcpIn > 0) |> 
-  select(season)  
+  dplyr::select(season)  
 CF1_precip_inc_direction <- as.character(CF1_precip_inc_direction$season)
 CF1_precip_inc_direction <- if(length(CF1_precip_inc_direction)==4) {"all"} else{CF1_precip_inc_direction}
 
 CF2_precip_inc_direction <- Season_delta |> filter(CF == CFs[2],
                                                    PrcpIn > 0) |> 
-  select(season)
+  dplyr::select(season)
 
 CF2_precip_inc_direction <- as.character(CF2_precip_inc_direction$season)
 CF2_precip_inc_direction <- if(length(CF2_precip_inc_direction)==4) {"all"} else{CF2_precip_inc_direction}
@@ -77,8 +77,8 @@ CF2_precip_inc_direction <- if(length(CF2_precip_inc_direction)==4) {"all"} else
 #Translation text
 
 # Historical -- look at state climate summary and fill in reference.
-State_summary_statement <- "In Georgia, 2016-2020 was the warmest consecutive 5-year interval in over a century (Runkle et al. 2022)."
-State_summary_reference <- "Frankson, R., K.E. Kunkel, L.E. Stevens, B.C. Stewart, W. Sweet, B. Murphey, and S. Rayne, 2022: Georgia State Climate Summary 2022. NOAA Technical Report NESDIS 150-GA. NOAA/NESDIS, Silver Spring, MD, 5 pp."
+State_summary_statement <- "Temperatures in Kansas have risen about 1.5 °F since the beginning of the 20th century, with greater warming in the winter and spring than the summer and fall (Frankson et al. 2022)."
+State_summary_reference <- "Frankson, R., K.E. Kunkel, L.E. Stevens, D.R. Easterling, X. Lin, M. Shulski, N.A. Umphlett, and C.J. Stiles, 2022: Kansas State Climate Summary 2022. NOAA Technical Report NESDIS 150-KS. NOAA/NESDIS, Silver Spring, MD, 5 pp."
 
 
 ```
@@ -95,11 +95,11 @@ title: `r LongName` RSS Climate Summary
 
 All climate models project warming temperatures at `r SiteID` by ca. 2050 relative to a 1979-2012 baseline (Analyses: NPS Climate Change Response Program [CCRP]; Figure 1). Future projections for precipitation are mixed; most models project increasing average annual precipitation relative to the historical period while some project decreasing precipitation. CCRP produced two divergent and plausible climate futures specific to `r SiteID` for consideration during the RSS process. These include a "`r CFs[1]`" and "`r CFs[2]`" climate future. Under both futures temperatures increase but differ in the magnitude of warming. The futures also differ in whether they project increasing or decreasing annual precipitation. Considering different scenarios of climate change at `r SiteID` is intended to allow planning for each scenario, accounting for uncertainty in the future conditions the park is likely to experience in management plans (Lawrence et al. 2021).
 
-Specifically, under a "`r CFs[1]`" climate future, mean annual temperatures are projected to rise `r round(D_Annual$Tavg[2],1)` °F by 2050, while mean annual precipitation `r ifelse(CF1_precip_direction=="pos","increases","decreases")` by `r round(D_Annual$PrcpIn[2],1)`” (`r round(D_Annual$PrcpIn[2]/D_Annual$PrcpIn[1]*100,1)`% from baseline). Under a "`r CFs[2]`" climate future, mean annual temperatures are projected to increase `r round(D_Annual$TavgF[3],2)` °F (Figure 1) and mean annual precipitation `r ifelse(CF2_precip_direction=="pos","increases","decreases")` by `r round(D_Annual$PrcpIn[3],1)`” (`r round(D_Annual$PrcpIn[2]/D_Annual$PrcpIn[1]*100,1)`%). Both climate futures project a decrease in days below freezing (`r round(D_Annual$UnderColdTemp[2] / D_Annual$UnderColdTemp[1] * 100, 1)`% to `r round(D_Annual$UnderColdTemp[3] / D_Annual$UnderColdTemp[1] * 100, 1)`%) and an increase in days above the 95th percentile for heat (`r round(HistPr99, 2)` °F). Such changes in temperature will affect species ranges. They will exclude some species dependent on cooler conditions while allowing further range expansions of sub-tropical species, including non-native exotics.
+Specifically, under a "`r CFs[1]`" climate future, mean annual temperatures are projected to rise `r round(D_Annual$TavgF[2],1)` °F by 2050, while mean annual precipitation `r ifelse(CF1_precip_direction=="pos","increases","decreases")` by `r round(D_Annual$PrcpIn[2],1)`” (`r round(D_Annual$PrcpIn[2]/D_Annual$PrcpIn[1]*100,1)`% from baseline). Under a "`r CFs[2]`" climate future, mean annual temperatures are projected to increase `r round(D_Annual$TavgF[3],2)` °F (Figure 1) and mean annual precipitation `r ifelse(CF2_precip_direction=="pos","increases","decreases")` by `r round(D_Annual$PrcpIn[3],1)`” (`r round(D_Annual$PrcpIn[3]/D_Annual$PrcpIn[1]*100,1)`%). Both climate futures project a decrease in days below freezing (`r round(D_Annual$UnderColdTemp[2] / D_Annual$UnderColdTemp[1] * 100, 1)`% to `r round(D_Annual$UnderColdTemp[3] / D_Annual$UnderColdTemp[1] * 100, 1)`%) and an increase in days above the 95th percentile for heat (`r round(HistTmaxHigh, 2)` °F). Such changes in temperature will affect species ranges. They will exclude some species dependent on cooler conditions while allowing further range expansions of sub-tropical species, including non-native exotics.
 
 ***RA'S THE FOLLOWING TEXT SHOULD BE MODIFIED AND MERGED INTO ONE PARAGRAPH***
 
-Models also project precipitation may occur during higher-intensity one or two-day events throughout the `r region`, due to the higher water vapor content of the atmosphere with increasing temperature (USGCRP 2023). 
+Models also project precipitation may occur during higher-intensity one or two-day events throughout the `r region.name`, due to the higher water vapor content of the atmosphere with increasing temperature (USGCRP 2023). 
 
 *RA's to insert seasonal text and combine with previous paragraph. Example below.*
 
